@@ -73,6 +73,7 @@ export default function CreateTransaction() {
         quoteAsset: data.quoteAsset,
         amount: amountNum,
         total: total,
+        side: 'buy',
         transactionDate: new Date(),
       }
 

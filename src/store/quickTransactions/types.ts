@@ -11,6 +11,7 @@ export interface QuickTransaction {
     amount: number;
     transactionDate: Date;
     total: number;
+    side?: 'buy' | 'sell';
 }
 
 export type CreateQuickTransaction = Omit<QuickTransaction, 'id'>;
