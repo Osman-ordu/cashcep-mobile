@@ -6,6 +6,7 @@ import { ThemedView } from '@/components/ui/themed-view';
 import { useThemeColor } from '@/hooks/use-theme-color';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { styles } from './styles';
+import { IconColors } from '@/theme';
 
 export function MarketHeader() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -28,17 +29,17 @@ export function MarketHeader() {
       <ThemedText type="title" style={styles.title}>Piyasalar</ThemedText>
 
       <View style={styles.searchContainer}>
-        <Ionicons name="search" size={20} color="#9BA1A6" style={styles.searchIcon} />
+        <Ionicons name="search" size={20} color={IconColors.gray} style={styles.searchIcon} />
         <TextInput
           style={[styles.searchInput, { color: textColor }]}
           placeholder="Coin ara..."
-          placeholderTextColor="#9BA1A6"
+          placeholderTextColor={IconColors.gray}
           value={searchQuery}
           onChangeText={setSearchQuery}
         />
         {searchQuery.length > 0 && (
           <Pressable onPress={() => setSearchQuery('')} style={styles.clearButton}>
-            <Ionicons name="close-circle" size={20} color="#9BA1A6" />
+            <Ionicons name="close-circle" size={20} color={IconColors.gray} />
           </Pressable>
         )}
       </View>

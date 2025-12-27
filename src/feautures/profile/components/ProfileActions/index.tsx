@@ -4,6 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { ThemedText } from '@/components/ui/themed-text';
 import { ThemedView } from '@/components/ui/themed-view';
 import { styles } from './styles';
+import { SemanticColors } from '@/theme';
 
 export function ProfileActions() {
   const handleLogout = () => {
@@ -53,7 +54,7 @@ export function ProfileActions() {
       <ThemedView card style={styles.card}>
         <Pressable style={styles.actionItem} onPress={handleLogout}>
           <View style={[styles.iconContainer, styles.logoutIcon]}>
-            <Ionicons name="log-out-outline" size={22} color="#EF4444" />
+            <Ionicons name="log-out-outline" size={22} color={SemanticColors.error} />
           </View>
           <ThemedText style={[styles.actionText, styles.logoutText]}>
             Çıkış Yap
@@ -64,7 +65,7 @@ export function ProfileActions() {
 
         <Pressable style={styles.actionItem} onPress={handleDeleteAccount}>
           <View style={[styles.iconContainer, styles.deleteIcon]}>
-            <Ionicons name="trash-outline" size={22} color="#EF4444" />
+            <Ionicons name="trash-outline" size={22} color={SemanticColors.error} />
           </View>
           <ThemedText style={[styles.actionText, styles.deleteText]}>
             Hesabı Sil

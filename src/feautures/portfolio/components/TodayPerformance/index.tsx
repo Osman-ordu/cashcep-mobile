@@ -5,6 +5,7 @@ import { ThemedText } from '@/components/ui/themed-text';
 import { ThemedView } from '@/components/ui/themed-view';
 import { todayPerformance } from '@/db';
 import { styles } from './styles';
+import { SemanticColors } from '@/theme';
 
 export function TodayPerformance() {
   const TopGainerIcon = todayPerformance.topGainer.icon;
@@ -23,8 +24,8 @@ export function TodayPerformance() {
               <ThemedText style={styles.coinName}>{todayPerformance.topGainer.coin}</ThemedText>
             </View>
             <View style={styles.changeRow}>
-              <Ionicons name="arrow-up" size={16} color="#22C55E" />
-              <ThemedText style={[styles.changeValue, { color: '#22C55E' }]}>
+              <Ionicons name="arrow-up" size={16} color={SemanticColors.success} />
+              <ThemedText style={[styles.changeValue, { color: SemanticColors.success }]}>
                 +{todayPerformance.topGainer.change.toFixed(2)}%
               </ThemedText>
             </View>
@@ -45,12 +46,12 @@ export function TodayPerformance() {
               <ThemedText style={styles.coinName}>{todayPerformance.topLoser.coin}</ThemedText>
             </View>
             <View style={styles.changeRow}>
-              <Ionicons name="arrow-down" size={16} color="#EF4444" />
-              <ThemedText style={[styles.changeValue, { color: '#EF4444' }]}>
+              <Ionicons name="arrow-down" size={16} color={SemanticColors.error} />
+              <ThemedText style={[styles.changeValue, { color: SemanticColors.error }]}>
                 {todayPerformance.topLoser.change.toFixed(2)}%
               </ThemedText>
             </View>
-            <ThemedText style={[styles.lossValue, { color: '#EF4444' }]}>
+            <ThemedText style={[styles.lossValue, { color: SemanticColors.error }]}>
               {todayPerformance.topLoser.value.toLocaleString('tr-TR', {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2,

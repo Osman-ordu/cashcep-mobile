@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { SemanticColors, OverlayColors, IconColors } from '@/theme';
 
 export const styles = StyleSheet.create({
   container: {
@@ -19,7 +20,7 @@ export const styles = StyleSheet.create({
     width: 80,
     height: 80,
     borderRadius: 40,
-    backgroundColor: 'rgba(0, 0, 0, 0.1)',
+    backgroundColor: OverlayColors.overlayLight,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -30,11 +31,11 @@ export const styles = StyleSheet.create({
     width: 28,
     height: 28,
     borderRadius: 14,
-    backgroundColor: '#22C55E',
+    backgroundColor: SemanticColors.success,
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 3,
-    borderColor: '#FFFFFF',
+    borderColor: IconColors.white,
   },
   name: {
     fontSize: 24,
@@ -60,7 +61,7 @@ export const styles = StyleSheet.create({
   },
   statDivider: {
     width: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.1)',
+    backgroundColor: OverlayColors.overlayLight,
   },
   statValue: {
     fontSize: 18,

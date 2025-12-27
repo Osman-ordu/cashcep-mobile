@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { SemanticColors } from '@/theme';
 
 export const styles = StyleSheet.create({
   container: {
@@ -22,7 +23,7 @@ export const styles = StyleSheet.create({
   filterText: {
     fontSize: 14,
     opacity: 0.7,
-    color: '#22C55E',
+    color: SemanticColors.success,
   },
   list: {
     gap: 12,

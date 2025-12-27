@@ -5,6 +5,7 @@ import { ThemedText } from '@/components/ui/themed-text';
 import { ThemedView } from '@/components/ui/themed-view';
 import { portfolioDistribution } from '@/db';
 import { styles } from './styles';
+import { SemanticColors, CurrencyColors } from '@/theme';
 
 export function PortfolioStats() {
   return (
@@ -33,14 +34,14 @@ export function PortfolioStats() {
 
         <View style={styles.summaryRow}>
           <View style={styles.summaryItem}>
-            <Ionicons name="trending-up" size={20} color="#22C55E" />
+            <Ionicons name="trending-up" size={20} color={SemanticColors.success} />
             <View style={styles.summaryText}>
               <ThemedText style={styles.summaryLabel}>En Yüksek</ThemedText>
               <ThemedText style={styles.summaryValue}>BTC</ThemedText>
             </View>
           </View>
           <View style={styles.summaryItem}>
-            <Ionicons name="pie-chart" size={20} color="#627EEA" />
+            <Ionicons name="pie-chart" size={20} color={CurrencyColors.ETH} />
             <View style={styles.summaryText}>
               <ThemedText style={styles.summaryLabel}>Dağılım</ThemedText>
               <ThemedText style={styles.summaryValue}>4 Coin</ThemedText>

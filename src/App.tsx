@@ -1,7 +1,7 @@
 import React from 'react';
 import { DarkTheme, DefaultTheme, NavigationContainer, Theme } from '@react-navigation/native';
 import { Provider } from 'react-redux';
-import { Colors } from '@/constants/theme';
+import { Colors } from '@/theme';
 import { ThemeProvider, useTheme } from '@/contexts/ThemeContext';
 import RootNavigator from './navigation/RootNavigator';
 import { store } from './store/store';

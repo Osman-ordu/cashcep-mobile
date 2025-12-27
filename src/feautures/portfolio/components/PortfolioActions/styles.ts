@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { SemanticColors, OverlayColors } from '@/theme';
 
 export const styles = StyleSheet.create({
   container: {
@@ -23,10 +24,10 @@ export const styles = StyleSheet.create({
     flex: 1,
   },
   buyButton: {
-    backgroundColor: '#22C55E',
+    backgroundColor: SemanticColors.success,
   },
   sellButton: {
-    borderColor: '#EF4444',
+    borderColor: SemanticColors.error,
   },
   actionButtonText: {
     fontSize: 16,
@@ -37,7 +38,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-around',
     paddingTop: 16,
     borderTopWidth: 1,
-    borderTopColor: 'rgba(0, 0, 0, 0.1)',
+    borderTopColor: OverlayColors.overlayLight,
   },
   secondaryActionItem: {
     flexDirection: 'row',

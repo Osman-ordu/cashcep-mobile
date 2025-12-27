@@ -7,6 +7,7 @@ import { ThemedText } from '@/components/ui/themed-text';
 import { ThemedView } from '@/components/ui/themed-view';
 import { AppLogo, useAppLogoHeight } from '@/components/layout';
 import { useThemeColor } from '@/hooks/use-theme-color';
+import { SemanticColors } from '@/theme';
 import { useCurrencySocket } from '@/hooks/use-currency-socket';
 import { CURRENCIES, CURRENCIES_NAMES, getCurrencyColor } from '@/feautures/market/constants';
 import { cleanNumericInput } from '@/utils';
@@ -209,7 +210,7 @@ export default function EasyBuySellScreen({ navigation }: Props) {
           {/* Bağlantı durumu */}
           {!isConnected && (
             <ThemedView style={styles.connectionStatus}>
-              <Ionicons name="warning-outline" size={16} color="#F59E0B" />
+              <Ionicons name="warning-outline" size={16} color={SemanticColors.warning} />
               <ThemedText style={styles.connectionStatusText}>
                 Fiyat verileri yükleniyor...
               </ThemedText>

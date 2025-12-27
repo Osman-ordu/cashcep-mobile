@@ -5,6 +5,7 @@ import { ThemedText } from '@/components/ui/themed-text';
 import { ThemedView } from '@/components/ui/themed-view';
 import { portfolioHoldings } from '@/db';
 import { styles } from './styles';
+import { SemanticColors } from '@/theme';
 
 export function PortfolioHoldings() {
   return (
@@ -20,7 +21,7 @@ export function PortfolioHoldings() {
         <View style={styles.list}>
           {portfolioHoldings.map((holding) => {
             const isPositive = holding.change24h > 0;
-            const changeColor = isPositive ? '#22C55E' : '#EF4444';
+            const changeColor = isPositive ? SemanticColors.success : SemanticColors.error;
             const changeIcon = isPositive ? 'arrow-up' : 'arrow-down';
             const IconComponent = holding.iconComponent;
 

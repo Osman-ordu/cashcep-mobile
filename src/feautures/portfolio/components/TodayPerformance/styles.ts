@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { SemanticColors, OverlayColors } from '@/theme';
 
 export const styles = StyleSheet.create({
     container: {
@@ -47,7 +48,7 @@ export const styles = StyleSheet.create({
     profitValue: {
       fontSize: 16,
       fontWeight: '600',
-      color: '#22C55E',
+      color: SemanticColors.success,
       marginBottom: 4,
     },
     lossValue: {
@@ -62,7 +63,7 @@ export const styles = StyleSheet.create({
     transactionContainer: {
       paddingTop: 16,
       borderTopWidth: 1,
-      borderTopColor: 'rgba(0, 0, 0, 0.05)',
+      borderTopColor: OverlayColors.overlayLighter,
     },
     transactionTitle: {
       fontSize: 14,

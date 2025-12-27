@@ -15,18 +15,14 @@ import { getQuickTransaction } from '@/store/quickTransactions';
 import { createTransactionSchema, type CreateTransactionFormData } from './validation';
 import { CreateQuickTransaction } from '@/store/quickTransactions/types';
 import { postQuickTransaction } from '@/store/quickTransactions';
-import { styles } from './styles';
+import { styles, getDynamicStyles } from './styles';
 
-interface CreateTransactionProps {
-  onQuickAdd: (currency: string, amount: number) => void;
-}
-
-export function CreateTransaction({ onQuickAdd }: CreateTransactionProps) {
+export default function CreateTransaction() {
   const dispatch = useAppDispatch();
   const textColor = useThemeColor({}, 'text');
+  const dynamicStyles = getDynamicStyles(textColor);
   const { currencies: socketCurrencies, isConnected } = useCurrencySocket();
   const [showBaseAssetPicker, setShowBaseAssetPicker] = useState(false);
-  const [showQuoteAssetPicker, setShowQuoteAssetPicker] = useState(false);
 
   const {
     control,
@@ -100,7 +96,7 @@ export function CreateTransaction({ onQuickAdd }: CreateTransactionProps) {
 
       {!isConnected && (
         <ThemedView style={styles.connectionStatus}>
-          <Ionicons name="warning-outline" size={16} color="#F59E0B" />
+          <Ionicons name="warning-outline" size={16} color={dynamicStyles.warningIcon()} />
           <ThemedText style={styles.connectionStatusText}>
             Fiyat verileri yükleniyor...
           </ThemedText>
@@ -108,38 +104,6 @@ export function CreateTransaction({ onQuickAdd }: CreateTransactionProps) {
       )}
 
       <View style={styles.formContainer}>
-        {/* Miktar Input */}
-        <View style={styles.inputGroup}>
-          <ThemedText style={styles.label}>Miktar</ThemedText>
-          <Controller
-            control={control}
-            name="amount"
-            render={({ field: { onChange, value } }) => (
-              <TextInput
-                style={[
-                  styles.input,
-                  {
-                    color: textColor,
-                    borderColor: errors.amount ? '#EF4444' : textColor + '30',
-                    backgroundColor: textColor + '10',
-                  },
-                ]}
-                value={value}
-                onChangeText={(text) => {
-                  const cleaned = cleanNumericInput(text);
-                  onChange(cleaned);
-                }}
-                placeholder="0.00"
-                placeholderTextColor={textColor + '60'}
-                keyboardType="decimal-pad"
-              />
-            )}
-          />
-          {errors.amount && (
-            <ThemedText style={styles.errorText}>{errors.amount.message}</ThemedText>
-          )}
-        </View>
-
         {/* Base Asset Seçimi */}
         <View style={styles.inputGroup}>
           <ThemedText style={styles.label}>Döviz Çifti</ThemedText>
@@ -151,52 +115,63 @@ export function CreateTransaction({ onQuickAdd }: CreateTransactionProps) {
                 <Pressable
                   style={[
                     styles.currencySelector,
-                    {
-                      borderColor: errors.baseAsset ? '#EF4444' : textColor + '30',
-                      backgroundColor: textColor + '10',
-                    },
+                    dynamicStyles.currencySelector(!!errors.baseAsset),
                   ]}
                   onPress={() => setShowBaseAssetPicker(true)}
                 >
                   <ThemedText
                     style={[
                       styles.currencySelectorText,
-                      { color: value ? textColor : textColor + '60' },
+                      dynamicStyles.currencySelectorText(!!value),
                     ]}
                   >
                     {value || 'Varlık Seçin'}
                   </ThemedText>
-                  <Ionicons name="chevron-down" size={20} color={textColor + '80'} />
+                  <Ionicons
+                    name="chevron-down"
+                    size={20}
+                    color={dynamicStyles.currencySelectorIcon()}
+                  />
                 </Pressable>
               )}
             />
 
             <ThemedText style={styles.divider}>/</ThemedText>
 
-            <Controller
-              control={control}
-              name="quoteAsset"
-              render={({ field: { value } }) => (
-                <Pressable
-                  style={[
-                    styles.currencySelector,
-                    {
-                      borderColor: textColor + '30',
-                      backgroundColor: textColor + '10',
-                    },
-                  ]}
-                  onPress={() => setShowQuoteAssetPicker(true)}
-                >
-                  <ThemedText style={[styles.currencySelectorText, { color: textColor }]}>
-                    {value || 'TRY'}
-                  </ThemedText>
-                  <Ionicons name="chevron-down" size={20} color={textColor + '80'} />
-                </Pressable>
-              )}
-            />
+            <View style={[styles.currencySelector, dynamicStyles.quoteAssetSelector()]}>
+              <ThemedText
+                style={[styles.currencySelectorText, dynamicStyles.quoteAssetText()]}
+              >
+                TRY
+              </ThemedText>
+            </View>
           </View>
           {errors.baseAsset && (
             <ThemedText style={styles.errorText}>{errors.baseAsset.message}</ThemedText>
+          )}
+        </View>
+               {/* Miktar Input */}
+               <View style={styles.inputGroup}>
+          <ThemedText style={styles.label}>Miktar</ThemedText>
+          <Controller
+            control={control}
+            name="amount"
+            render={({ field: { onChange, value } }) => (
+              <TextInput
+                style={[styles.input, dynamicStyles.input(!!errors.amount)]}
+                value={value}
+                onChangeText={(text) => {
+                  const cleaned = cleanNumericInput(text);
+                  onChange(cleaned);
+                }}
+                placeholder="0.00"
+                placeholderTextColor={dynamicStyles.inputPlaceholder()}
+                keyboardType="decimal-pad"
+              />
+            )}
+          />
+          {errors.amount && (
+            <ThemedText style={styles.errorText}>{errors.amount.message}</ThemedText>
           )}
         </View>
 
@@ -230,7 +205,7 @@ export function CreateTransaction({ onQuickAdd }: CreateTransactionProps) {
 
         {/* Submit Button */}
         <Button
-          title="Ekle"
+          title="Portföy'e Ekle"
           onPress={handleSubmit(onSubmit)}
           variant="primary"
           size="large"
@@ -256,21 +231,18 @@ export function CreateTransaction({ onQuickAdd }: CreateTransactionProps) {
             <View style={styles.modalHeader}>
               <ThemedText style={styles.modalTitle}>Varlık Seçin</ThemedText>
               <Pressable onPress={() => setShowBaseAssetPicker(false)}>
-                <Ionicons name="close" size={24} color={textColor} />
+                <Ionicons name="close" size={24} color={dynamicStyles.modalCloseIcon()} />
               </Pressable>
             </View>
             <ScrollView style={styles.modalBody}>
-              {availableBaseAssets.map((currency) => {
-                const currencyData = socketCurrencies[currency];
+              {availableBaseAssets?.map((currency) => {
+                const currencyData = socketCurrencies?.[currency];
                 return (
                   <Pressable
                     key={currency}
                     style={[
                       styles.currencyOption,
-                      {
-                        backgroundColor:
-                          baseAsset === currency ? textColor + '20' : 'transparent',
-                      },
+                      dynamicStyles.currencyOption(baseAsset === currency),
                     ]}
                     onPress={(e) => {
                       e.stopPropagation();
@@ -303,49 +275,6 @@ export function CreateTransaction({ onQuickAdd }: CreateTransactionProps) {
         </Pressable>
       </Modal>
 
-      {/* Quote Asset Picker Modal */}
-      <Modal
-        visible={showQuoteAssetPicker}
-        transparent={true}
-        animationType="slide"
-        onRequestClose={() => setShowQuoteAssetPicker(false)}
-      >
-        <Pressable
-          style={styles.modalOverlay}
-          onPress={() => setShowQuoteAssetPicker(false)}
-        >
-          <Pressable onPress={(e) => e.stopPropagation()}>
-            <ThemedView card style={styles.modalContent}>
-            <View style={styles.modalHeader}>
-              <ThemedText style={styles.modalTitle}>Quote Asset Seçin</ThemedText>
-              <Pressable onPress={() => setShowQuoteAssetPicker(false)}>
-                <Ionicons name="close" size={24} color={textColor} />
-              </Pressable>
-            </View>
-            <ScrollView style={styles.modalBody}>
-              <Pressable
-                style={[
-                  styles.currencyOption,
-                  {
-                    backgroundColor: quoteAsset === 'TRY' ? textColor + '20' : 'transparent',
-                  },
-                ]}
-                onPress={(e) => {
-                  e.stopPropagation();
-                  setValue('quoteAsset', 'TRY');
-                  setShowQuoteAssetPicker(false);
-                }}
-              >
-                <View style={styles.currencyOptionContent}>
-                  <ThemedText style={styles.currencyOptionCode}>TRY</ThemedText>
-                  <ThemedText style={styles.currencyOptionName}>Türk Lirası</ThemedText>
-                </View>
-              </Pressable>
-            </ScrollView>
-            </ThemedView>
-          </Pressable>
-        </Pressable>
-      </Modal>
     </ThemedView>
   );
 }

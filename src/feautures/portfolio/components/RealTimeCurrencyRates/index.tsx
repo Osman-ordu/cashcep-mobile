@@ -6,6 +6,7 @@ import { ThemedView } from '@/components/ui/themed-view';
 import { useCurrencySocket, CurrencyData } from '@/hooks/use-currency-socket';
 import { styles } from './styles';
 import { useThemeColor } from '@/hooks/use-theme-color';
+import { CurrencyColors, SemanticColors } from '@/theme';
 
 const CURRENCY_WIDTH = 140;
 const SCROLL_SPEED = 50; // pixels per second
@@ -39,16 +40,16 @@ const getCurrencyIcon = (symbol: string): keyof typeof Ionicons.glyphMap => {
 
 const getCurrencyColor = (symbol: string): string => {
   const colorMap: Record<string, string> = {
-    USD: '#10B981',
-    EUR: '#3B82F6',
-    AYAR22: '#FFD700',
-    AYAR14: '#FFD700',
-    GRAM: '#FFD700',
-    CEYREK: '#FFD700',
-    YARIM: '#FFD700',
-    ATA: '#FFD700',
+    USD: CurrencyColors.USD,
+    EUR: CurrencyColors.EUR,
+    AYAR22: CurrencyColors.GOLD,
+    AYAR14: CurrencyColors.GOLD,
+    GRAM: CurrencyColors.GOLD,
+    CEYREK: CurrencyColors.GOLD,
+    YARIM: CurrencyColors.GOLD,
+    ATA: CurrencyColors.GOLD,
   };
-  return colorMap[symbol] || '#666';
+  return colorMap[symbol] || CurrencyColors.default;
 };
 
 export function RealTimeCurrencyRates() {
@@ -121,7 +122,7 @@ export function RealTimeCurrencyRates() {
       >
         {displayCurrencies.map((currency) => {
           const isPositive = currency.changePercent > 0;
-          const changeColor = isPositive ? '#22C55E' : '#EF4444';
+          const changeColor = isPositive ? SemanticColors.success : SemanticColors.error;
           const changeIcon = isPositive ? 'arrow-up' : 'arrow-down';
 
           return (
@@ -171,7 +172,7 @@ export function RealTimeCurrencyRates() {
         {/* Duplicate currencies for seamless loop */}
         {displayCurrencies.map((currency) => {
           const isPositive = currency.changePercent > 0;
-          const changeColor = isPositive ? '#22C55E' : '#EF4444';
+          const changeColor = isPositive ? SemanticColors.success : SemanticColors.error;
           const changeIcon = isPositive ? 'arrow-up' : 'arrow-down';
 
           return (

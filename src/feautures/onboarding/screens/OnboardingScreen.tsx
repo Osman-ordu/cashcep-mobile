@@ -10,7 +10,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Button } from '@/components/ui/button';
 import { ThemedText } from '@/components/ui/themed-text';
 import { ThemedView } from '@/components/ui/themed-view';
-import { Colors } from '@/constants/theme';
+import { Colors } from '@/theme';
 import { slides } from '@/db';
 import { RootStackParamList } from '@/types';
 import { styles } from './OnboardingScreen.styles';

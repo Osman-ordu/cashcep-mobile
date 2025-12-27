@@ -1,4 +1,5 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, ViewStyle, TextStyle } from 'react-native';
+import { SemanticColors, OverlayColors } from '@/theme';
 
 export const styles = StyleSheet.create({
   card: {
@@ -23,12 +24,12 @@ export const styles = StyleSheet.create({
     gap: 8,
     padding: 12,
     borderRadius: 8,
-    backgroundColor: '#FEF3C7',
+    backgroundColor: SemanticColors.warningBackground,
     marginBottom: 16,
   },
   connectionStatusText: {
     fontSize: 12,
-    color: '#F59E0B',
+    color: SemanticColors.warning,
     fontWeight: '500',
   },
   formContainer: {
@@ -54,7 +55,7 @@ export const styles = StyleSheet.create({
   },
   errorText: {
     fontSize: 12,
-    color: '#EF4444',
+    color: SemanticColors.error,
     marginTop: 4,
     fontWeight: '500',
   },
@@ -87,7 +88,7 @@ export const styles = StyleSheet.create({
   priceContainer: {
     padding: 16,
     borderRadius: 12,
-    backgroundColor: 'rgba(0, 0, 0, 0.03)',
+    backgroundColor: OverlayColors.overlayVeryLight,
     gap: 8,
   },
   priceRow: {
@@ -117,7 +118,7 @@ export const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: OverlayColors.overlay,
     justifyContent: 'flex-end',
     zIndex: 1000,
   },
@@ -167,5 +168,36 @@ export const styles = StyleSheet.create({
     fontWeight: '600',
     opacity: 0.8,
   },
+});
+
+// Dinamik stiller için helper fonksiyonlar
+export const getDynamicStyles = (textColor: string) => ({
+  currencySelector: (hasError: boolean): ViewStyle => ({
+    borderColor: hasError ? SemanticColors.error : textColor + '30',
+    backgroundColor: textColor + '10',
+  }),
+  currencySelectorText: (hasValue: boolean): TextStyle => ({
+    color: hasValue ? textColor : textColor + '60',
+  }),
+  currencySelectorIcon: (): string => textColor + '80',
+  quoteAssetSelector: (): ViewStyle => ({
+    borderColor: textColor + '30',
+    backgroundColor: textColor + '10',
+    opacity: 0.6,
+  }),
+  quoteAssetText: (): TextStyle => ({
+    color: textColor,
+  }),
+  input: (hasError: boolean): ViewStyle & TextStyle => ({
+    color: textColor,
+    borderColor: hasError ? SemanticColors.error : textColor + '30',
+    backgroundColor: textColor + '10',
+  }),
+  inputPlaceholder: (): string => textColor + '60',
+  modalCloseIcon: (): string => textColor,
+  currencyOption: (isSelected: boolean): ViewStyle => ({
+    backgroundColor: isSelected ? textColor + '20' : 'transparent',
+  }),
+  warningIcon: (): string => SemanticColors.warning,
 });
 

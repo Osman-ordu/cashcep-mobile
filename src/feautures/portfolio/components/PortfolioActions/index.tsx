@@ -8,6 +8,7 @@ import { ThemedText } from '@/components/ui/themed-text';
 import { ThemedView } from '@/components/ui/themed-view';
 import { RootStackParamList } from '@/types';
 import { styles } from './styles';
+import { SemanticColors } from '@/theme';
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
@@ -58,11 +59,11 @@ export function PortfolioActions() {
 
         <View style={styles.secondaryActions}>
           <Pressable style={styles.secondaryActionItem} onPress={handleDeposit}>
-            <Ionicons name="arrow-down-circle" size={24} color="#22C55E" />
+            <Ionicons name="arrow-down-circle" size={24} color={SemanticColors.success} />
             <ThemedText style={styles.secondaryActionText}>Para Yatır</ThemedText>
           </Pressable>
           <Pressable style={styles.secondaryActionItem} onPress={handleWithdraw}>
-            <Ionicons name="arrow-up-circle" size={24} color="#EF4444" />
+            <Ionicons name="arrow-up-circle" size={24} color={SemanticColors.error} />
             <ThemedText style={styles.secondaryActionText}>Para Çek</ThemedText>
           </Pressable>
         </View>

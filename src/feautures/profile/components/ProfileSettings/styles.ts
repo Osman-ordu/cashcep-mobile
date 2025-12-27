@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { SemanticColors, OverlayColors } from '@/theme';
 
 export const styles = StyleSheet.create({
   container: {
@@ -29,7 +30,7 @@ export const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: 'rgba(34, 197, 94, 0.1)',
+    backgroundColor: SemanticColors.successBackground,
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 12,
@@ -40,7 +41,7 @@ export const styles = StyleSheet.create({
   },
   separator: {
     height: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.05)',
+    backgroundColor: OverlayColors.overlayLighter,
     marginLeft: 52,
   },
 });

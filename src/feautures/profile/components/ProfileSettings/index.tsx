@@ -5,6 +5,7 @@ import { ThemedText } from '@/components/ui/themed-text';
 import { ThemedView } from '@/components/ui/themed-view';
 import { useTheme } from '@/contexts/ThemeContext';
 import { styles } from './styles';
+import { SemanticColors, IconColors } from '@/theme';
 
 type SettingItem = {
   id: string;
@@ -154,7 +155,7 @@ export function ProfileSettings() {
             >
               <View style={styles.settingLeft}>
                 <View style={styles.iconContainer}>
-                  <Ionicons name={setting.icon} size={22} color="#22C55E" />
+                  <Ionicons name={setting.icon} size={22} color={SemanticColors.success} />
                 </View>
                 <ThemedText style={styles.settingTitle}>{setting.title}</ThemedText>
               </View>
@@ -163,11 +164,11 @@ export function ProfileSettings() {
                 <Switch
                   value={setting.value}
                   onValueChange={setting.onPress}
-                  trackColor={{ false: '#767577', true: '#22C55E' }}
-                  thumbColor="#FFFFFF"
+                  trackColor={{ false: IconColors.switchGray, true: SemanticColors.success }}
+                  thumbColor={IconColors.white}
                 />
               ) : (
-                <Ionicons name="chevron-forward" size={20} color="#9BA1A6" />
+                <Ionicons name="chevron-forward" size={20} color={IconColors.gray} />
               )}
             </Pressable>
             {index < settings.length - 1 && <View style={styles.separator} />}

@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { SemanticColors, OverlayColors } from '@/theme';
 
 export const styles = StyleSheet.create({
   container: {
@@ -23,24 +24,24 @@ export const styles = StyleSheet.create({
     marginRight: 12,
   },
   logoutIcon: {
-    backgroundColor: 'rgba(239, 68, 68, 0.1)',
+    backgroundColor: SemanticColors.errorBackground,
   },
   deleteIcon: {
-    backgroundColor: 'rgba(239, 68, 68, 0.1)',
+    backgroundColor: SemanticColors.errorBackground,
   },
   actionText: {
     fontSize: 16,
     fontWeight: '500',
   },
   logoutText: {
-    color: '#EF4444',
+    color: SemanticColors.error,
   },
   deleteText: {
-    color: '#EF4444',
+    color: SemanticColors.error,
   },
   separator: {
     height: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.05)',
+    backgroundColor: OverlayColors.overlayLighter,
     marginLeft: 52,
   },
 });

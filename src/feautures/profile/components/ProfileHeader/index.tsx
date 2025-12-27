@@ -4,6 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { ThemedText } from '@/components/ui/themed-text';
 import { ThemedView } from '@/components/ui/themed-view';
 import { styles } from './styles';
+import { IconColors } from '@/theme';
 
 export function ProfileHeader() {
   return (
@@ -11,10 +12,10 @@ export function ProfileHeader() {
       <ThemedView card style={styles.card}>
         <View style={styles.avatarContainer}>
           <View style={styles.avatar}>
-            <Ionicons name="person" size={40} color="#9BA1A6" />
+            <Ionicons name="person" size={40} color={IconColors.gray} />
           </View>
           <View style={styles.editButton}>
-            <Ionicons name="camera" size={16} color="#FFFFFF" />
+            <Ionicons name="camera" size={16} color={IconColors.white} />
           </View>
         </View>
 

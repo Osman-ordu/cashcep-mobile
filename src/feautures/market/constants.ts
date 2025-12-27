@@ -1,4 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
+import { CurrencyColors } from '@/theme';
 
 export const CURRENCIES = ['USD', 'EUR', 'AYAR14', 'AYAR22', 'GRAM', 'CEYREK', 'YARIM', 'ATA', 'GUMUSTRY'];
 
@@ -38,16 +39,16 @@ export const getCurrencyIcon = (symbol: string): keyof typeof Ionicons.glyphMap 
 
 export const getCurrencyColor = (symbol: string): string => {
   const colorMap: Record<string, string> = {
-    USD: '#10B981',
-    EUR: '#3B82F6',
-    AYAR22: '#FFD700',
-    AYAR14: '#FFD700',
-    GRAM: '#FFD700',
-    CEYREK: '#FFD700',
-    YARIM: '#FFD700',
-    ATA: '#FFD700',
-    GUMUSTRY: '#C0C0C0',
+    USD: CurrencyColors.USD,
+    EUR: CurrencyColors.EUR,
+    AYAR22: CurrencyColors.GOLD,
+    AYAR14: CurrencyColors.GOLD,
+    GRAM: CurrencyColors.GOLD,
+    CEYREK: CurrencyColors.GOLD,
+    YARIM: CurrencyColors.GOLD,
+    ATA: CurrencyColors.GOLD,
+    GUMUSTRY: CurrencyColors.SILVER,
   };
-  return colorMap[symbol] || '#666';
+  return colorMap[symbol] || CurrencyColors.default;
 };
 
