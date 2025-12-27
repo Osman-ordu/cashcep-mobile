@@ -1,5 +1,6 @@
 import React, { createContext, ReactNode,useContext, useEffect, useState } from 'react';
 import { Platform,useColorScheme as useRNColorScheme } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type ThemeMode = 'light' | 'dark' | 'system';
 
@@ -15,7 +16,7 @@ const THEME_STORAGE_KEY = '@fintrack_theme_mode';
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const systemColorScheme = useRNColorScheme();
-  const [themeMode, setThemeModeState] = useState<ThemeMode>('system');
+  const [themeMode, setThemeModeState] = useState<ThemeMode>('dark');
   const [isLoaded, setIsLoaded] = useState(false);
 
   // Load saved theme preference
@@ -27,9 +28,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
         if (Platform.OS === 'web') {
           savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
         } else {
-          // For native, you can use AsyncStorage or SecureStore
-          // For now, we'll use a simple approach
-          // You can install @react-native-async-storage/async-storage for persistence
+          savedTheme = await AsyncStorage.getItem(THEME_STORAGE_KEY);
         }
 
         if (savedTheme && (savedTheme === 'light' || savedTheme === 'dark' || savedTheme === 'system')) {
@@ -46,16 +45,14 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
   // Calculate actual color scheme
   const colorScheme: 'light' | 'dark' =
-    themeMode === 'system' ? (systemColorScheme ?? 'light') : themeMode;
+    themeMode === 'system' ? (systemColorScheme ?? 'dark') : themeMode;
 
   const setThemeMode = async (mode: ThemeMode) => {
     try {
       if (Platform.OS === 'web') {
         localStorage.setItem(THEME_STORAGE_KEY, mode);
       } else {
-        // For native, you can use AsyncStorage or SecureStore
-        // For now, we'll just update state
-        // You can install @react-native-async-storage/async-storage for persistence
+        await AsyncStorage.setItem(THEME_STORAGE_KEY, mode);
       }
       setThemeModeState(mode);
     } catch (error) {

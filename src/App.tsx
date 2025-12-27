@@ -1,8 +1,10 @@
 import React from 'react';
 import { DarkTheme, DefaultTheme, NavigationContainer, Theme } from '@react-navigation/native';
+import { Provider } from 'react-redux';
 import { Colors } from '@/constants/theme';
 import { ThemeProvider, useTheme } from '@/contexts/ThemeContext';
 import RootNavigator from './navigation/RootNavigator';
+import { store } from './store/store';
 
 const lightTheme: Theme = {
   ...DefaultTheme,
@@ -40,9 +42,11 @@ function AppContent() {
 
 export default function AppRoot() {
   return (
-    <ThemeProvider>
-      <AppContent />
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider>
+        <AppContent />
+      </ThemeProvider>
+    </Provider>
   );
 }
 

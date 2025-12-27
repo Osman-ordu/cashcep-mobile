@@ -11,7 +11,7 @@ const tintColorDark = '#22C55E';
 export const Colors = {
   light: {
     text: '#11181C',
-    background: '#F5F7FA', 
+    background: '#FFFFFF', 
     card: 'rgba(0, 0, 0, 0.02)',
     tint: tintColorLight,
     icon: '#687076',
@@ -20,7 +20,7 @@ export const Colors = {
   },
   dark: {
     text: '#ECEDEE',
-    background: '#151718',
+    background: '#08080f',
     card: 'rgba(255, 255, 255, 0.05)', 
     tint: tintColorDark,
     icon: '#9BA1A6',
