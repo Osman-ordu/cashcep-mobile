@@ -6,8 +6,11 @@ import { ThemedView } from '@/components/ui/themed-view';
 import { CustomGrid } from '@/components/ui/custom-grid';
 import { quickTransactionColumns } from '@/db/columns';
 import { useThemeColor } from '@/hooks/use-theme-color';
-import { useMarketData } from '@/feautures/market/hooks/useMarketData';
-import { useCurrencySocket } from '@/hooks/use-currency-socket';
+import { useDispatch } from 'react-redux';
+import { getQuickTransaction } from '@/store/quickTransactions';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store/store';
 import { styles } from './styles';
 
 interface QuickTransactionsProps {
@@ -15,12 +18,15 @@ interface QuickTransactionsProps {
 }
 
 export function QuickTransactions({ onQuickAdd }: QuickTransactionsProps) {
+  const dispatch = useDispatch();
+  const quickTransactions = useSelector((state: RootState) => state.quickTransaction?.data?.data);
   const textColor = useThemeColor({}, 'text');
-  const { currencies: socketCurrencies, isConnected } = useCurrencySocket();
-  const { quickTransactionData } = useMarketData({
-    socketCurrencies,
-    isConnected,
-  });
+
+  useEffect(() => {
+   (async () => {
+    await dispatch(getQuickTransaction() as any);
+   })();
+  }, []);
 
   return (
     <ThemedView card style={styles.card}>
@@ -29,7 +35,7 @@ export function QuickTransactions({ onQuickAdd }: QuickTransactionsProps) {
 
       <CustomGrid
         gridKey="quick-transactions"
-        data={quickTransactionData}
+        data={quickTransactions || []}
         columns={quickTransactionColumns}
         renderRowActions={(row) => (
           <Pressable
@@ -43,4 +49,5 @@ export function QuickTransactions({ onQuickAdd }: QuickTransactionsProps) {
     </ThemedView>
   );
 }
+
 

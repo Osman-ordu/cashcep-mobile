@@ -31,21 +31,22 @@ export const currencyColumns: Column[] = [
 
 export const quickTransactionColumns: Column[] = [
   {
-    dataField: 'currencyName',
+    dataField: 'baseAsset',
     caption: 'Döviz',
     addition: {
       align: 'left',
     },
   },
   {
-    dataField: 'amountDisplay',
+    dataField: 'amount',
     caption: 'Miktar',
     addition: {
       align: 'center',
     },
   },
+  
   {
-    dataField: 'tryAmount',
+    dataField: 'total',
     caption: 'Türk Lirası',
     addition: {
       align: 'center',
