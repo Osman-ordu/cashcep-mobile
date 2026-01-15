@@ -32,14 +32,7 @@ module.exports = defineConfig([
           ],
         },
       ],
-      'padding-line-between-statements': [
-        'error',
-        {
-          blankLine: 'never',
-          prev: 'import',
-          next: 'import',
-        },
-      ],
+      'padding-line-between-statements': 'off',
       'simple-import-sort/exports': 'error',
       'no-trailing-spaces': ['error', { skipBlankLines: false, ignoreComments: false }],
       'no-multiple-empty-lines': ['error', { max: 1, maxEOF: 1, maxBOF: 0 }],
