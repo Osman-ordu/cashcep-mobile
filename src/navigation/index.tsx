@@ -2,12 +2,16 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Ionicons } from '@expo/vector-icons';
+import { useAuth } from '@/contexts/AuthContext';
 import { EasyBuySellScreen } from '@/feautures/easyBuySell';
+import { LoginScreen } from '@/feautures/login';
 import { MarketScreen } from '@/feautures/market';
 import { OnboardingScreen } from '@/feautures/onboarding';
 import { PortfolioScreen } from '@/feautures/portfolio';
 import { ProfileScreen } from '@/feautures/profile';
+import { RegisterScreen } from '@/feautures/register';
 import { TransactionsScreen } from '@/feautures/transactions';
+import { VerifyEmailScreen } from '@/feautures/verifyEmail';
 import { MarketStackParamList,RootStackParamList, TabParamList } from './types';
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
@@ -23,6 +27,8 @@ function MarketStackNavigator() {
 }
 
 function TabNavigator() {
+  const { user } = useAuth();
+
   return (
     <Tab.Navigator
       screenOptions={{ headerShown: false }}
@@ -57,33 +63,43 @@ function TabNavigator() {
           ),
         }}
       />
-      <Tab.Screen
-        name="Profile"
-        component={ProfileScreen}
-        options={{
-          title: 'Profil',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="person" size={size} color={color} />
-          ),
-        }}
-      />
+      {user && (
+        <Tab.Screen
+          name="Profile"
+          component={ProfileScreen}
+          options={{
+            title: 'Profil',
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="person" size={size} color={color} />
+            ),
+          }}
+        />
+      )}
     </Tab.Navigator>
   );
 }
 
 export default function RootNavigator() {
+  const { user, loading } = useAuth();
+    if (loading) {
+    return null;
+  }
+
   return (
     <RootStack.Navigator
-      initialRouteName="Onboarding"
+      initialRouteName={user ? 'Tabs' : 'Onboarding'}
       screenOptions={{ headerShown: false }}
     >
       <RootStack.Screen name="Onboarding" component={OnboardingScreen} />
+      <RootStack.Screen name="Login" component={LoginScreen} />
+      <RootStack.Screen name="Register" component={RegisterScreen} />
       <RootStack.Screen name="Tabs" component={TabNavigator} />
       <RootStack.Screen
         name="EasyBuySell"
         component={EasyBuySellScreen}
       />
-    </RootStack.Navigator>
+      <RootStack.Screen name="VerifyEmail" component={VerifyEmailScreen} />
+      </RootStack.Navigator>
   );
 }
 

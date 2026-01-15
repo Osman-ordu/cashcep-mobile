@@ -7,9 +7,11 @@ export const axiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.request.use(async (config: any) => {
-  const token = await tokenService.getToken();
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+  if (!config.headers.Authorization) {
+    const token = await tokenService.getToken();
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
   }
 
   // Log request details
@@ -24,10 +26,8 @@ axiosInstance.interceptors.request.use(async (config: any) => {
   return config;
 });
 
-// Response interceptor for logging
 axiosInstance.interceptors.response.use(
   (response) => {
-    // Log successful response
     console.log('✅ [API RESPONSE SUCCESS]', {
       status: response.status,
       statusText: response.statusText,
@@ -37,7 +37,6 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   (error) => {
-    // Log error response
     console.error('❌ [API RESPONSE ERROR]', {
       status: error?.response?.status,
       statusText: error?.response?.statusText,

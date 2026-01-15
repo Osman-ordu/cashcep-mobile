@@ -3,8 +3,11 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 export type RootStackParamList = {
   Onboarding: undefined;
+  Login: undefined;
+  Register: undefined;
   Tabs: undefined;
   EasyBuySell: undefined;
+  VerifyEmail: undefined;
 };
 
 export type TabParamList = {

@@ -1,4 +1,4 @@
-import { AsyncThunk,createSlice } from '@reduxjs/toolkit';
+import { AsyncThunk, createSlice, SliceCaseReducers } from '@reduxjs/toolkit';
 import { castDraft } from 'immer';
 
 export interface BaseState<T> {
@@ -9,7 +9,8 @@ export interface BaseState<T> {
 
 export function createSliceModule<T>(
   name: string,
-  thunk: AsyncThunk<T, any, any>
+  thunk: AsyncThunk<T, any, any>,
+  customReducers?: SliceCaseReducers<BaseState<T>>
 ) {
   const initialState: BaseState<T> = {
     data: null,
@@ -20,7 +21,7 @@ export function createSliceModule<T>(
   return createSlice({
     name,
     initialState,
-    reducers: {},
+    reducers: (customReducers || {}) as any,
     extraReducers: (builder) => {
       builder
         .addCase(thunk.pending, (state) => {
@@ -33,7 +34,7 @@ export function createSliceModule<T>(
         })
         .addCase(thunk.rejected, (state, action) => {
           state.isLoading = false;
-          state.error = (action.error as { message: string }).message ?? 'Unexpected error';
+          state.error = (action.payload as string) || (action.error as { message: string })?.message || 'Unexpected error';
         });
     },
   });

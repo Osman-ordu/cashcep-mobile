@@ -1,6 +1,8 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { DarkTheme, DefaultTheme, NavigationContainer, Theme } from '@react-navigation/native';
+import ToastProvider from 'toastify-react-native';
+import { AuthProvider } from '@/contexts/AuthContext';
 import { ThemeProvider, useTheme } from '@/contexts/ThemeContext';
 import { Colors } from '@/theme';
 import RootNavigator from './navigation';
@@ -43,9 +45,12 @@ function AppContent() {
 export default function AppRoot() {
   return (
     <Provider store={store}>
-      <ThemeProvider>
-        <AppContent />
-      </ThemeProvider>
+      <AuthProvider>
+        <ThemeProvider>
+          <AppContent />
+          <ToastProvider />
+        </ThemeProvider>
+      </AuthProvider>
     </Provider>
   );
 }
