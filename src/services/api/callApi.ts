@@ -1,33 +1,33 @@
 import { axiosInstance } from './axiosInstance';
 import { tokenService } from './tokenService';
-// import { showErrorToast, showSuccessToast } from '@/utils/toast';
 
 interface CallApiProps {
   method: 'GET' | 'POST' | 'PUT' | 'DELETE';
   url: string;
   data?: any;
   params?: any;
+  headers?: Record<string, string>;
   silent?: boolean;
 }
 
-export const CallApi = async ({
+export const CallApi = async <T = any>({
   method,
   url,
   data,
   params,
+  headers,
   silent = false,
-}: CallApiProps) => {
+}: CallApiProps): Promise<T> => {
   try {
     const response = await axiosInstance({
       method,
       url,
       data,
       params,
+      headers: headers ? {
+        ...headers,
+      } : undefined,
     });
-
-    if (!silent) {
-      // showSuccessToast('Operation successful');
-    }
 
     return response.data;
   } catch (error: any) {
@@ -36,10 +36,6 @@ export const CallApi = async ({
     if (status === 401) {
       await refreshToken();
     }
-
-    // showErrorToast(
-    //   error?.response?.data?.message || 'Connection failed'
-    // );
 
     throw error;
   }
